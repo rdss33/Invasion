@@ -1,15 +1,15 @@
 import React from "react";
 import { Card } from "../../Card";
-import CardStack from "../CardStack";
+import { PlayerStat } from "../../../Player Stats/Stats/PlayerStat";
 
 interface IActiveStackProps {
-    currentActiveStack: Card[];
+    currentActiveStack: Card[],
 }
 export default function ActiveStack({currentActiveStack}: Readonly<IActiveStackProps>){
 
     return(
         <div>
-            <CardStack currentStack={currentActiveStack}/>
+            {/* Show active cards here */}
         </div>
     )
 }

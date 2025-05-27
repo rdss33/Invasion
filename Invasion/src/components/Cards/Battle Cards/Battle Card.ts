@@ -1,33 +1,81 @@
+import { PlayerStatController } from "../../Player Stats/PlayerStatManager/PlayerStatController";
 import { Card } from "../Card"
 import { CARD_CONSTANTS } from "../Constants";
 
 
 const BaseValues = {
-    Attack: 0,
-    Defense: 0,
-    Duration: CARD_CONSTANTS.Duration
+    _attack: 0,
+    _defense: 0,
+    _duration: CARD_CONSTANTS.Duration,
+    _drainRate: CARD_CONSTANTS.DrainRate
 }
-export class BattleCard extends Card {
+export abstract class BattleCard extends Card {
+
+    private _remainingDuration : number = 0; // Initial value
+
+    public get Attack() : number {
+        return this.Attributes._attack;
+    }
+
+    public get Defense() : number {
+        return this.Attributes._defense;
+    }
+    
+    public get Duration() : number {
+        return this.Attributes._duration;
+    }
+
+    
+    public get DrainRate() : number {
+        return this.Attributes._drainRate
+    }
+    
+
+    public get RemainingDuration() : number{
+        return this._remainingDuration;
+    }
+
+
     constructor(
-         private readonly Information: {
+         Information: {
             _name: string, 
             _type: string, 
             _img: string,
+            _id: number,
          },
-         private Attributes: {
-            Attack: number,
-            Defense: number,
-            Duration: number
-         } = BaseValues
+         private readonly Attributes: {
+            _attack: number,
+            _defense: number,
+            _duration: number,
+            _drainRate: number
+         } = BaseValues,
     ){
         super(Information);
     }
-    attack(): number{
-        return this.Attributes.Attack;
+    Play(playerStatController: PlayerStatController): void {
+        // Children may override this method to add "On Play" effects
+        this._remainingDuration = this.Duration;
     }
-    defense(): number{
-        return this.Attributes.Defense;
+    Active(playerStatController: PlayerStatController): void {
+        // This is the cards basic functionality while active
+        this.AddStat("Attack",this.Attack,playerStatController);
+        this.AddStat("Defense",this.Defense,playerStatController);
     }
-    duration(): number{
-        return this.Attributes.Duration;
-    }}
+    Exhaust(playerStatController: PlayerStatController): void {
+        // Children may override this method to add "On Exhaust" effects
+    }
+    Countdown(playerStatController : PlayerStatController) : void {
+        // Children may override this method to add "On Countdown" effects
+        if(this._remainingDuration<=0){
+            this.Exhaust(playerStatController);
+        } else {
+            this.Active(playerStatController);
+        }
+        this._remainingDuration-=this.DrainRate; // Reduces remaining duration by the drain rate
+    }
+    AddStat(statName: string, statValue : number, playerStatController: PlayerStatController):void{
+        const accValue = playerStatController.getStatChangeAccumulator(statName);
+        const newPair = {name: statName, value: accValue+statValue}
+        playerStatController.setStatChangeAccumulator(newPair);
+    }
+}

@@ -7,7 +7,7 @@ interface IStackProps {
 export default function CardStack({currentStack = []}: Readonly<IStackProps>){
     return(
         <div>
-            {currentStack[0] != null ? <img src={currentStack[0].getImg()} alt="" /> : null}
+            {currentStack[0] != null ? <img src={currentStack[0].Img} alt="" /> : null}
         </div>
     )
 }

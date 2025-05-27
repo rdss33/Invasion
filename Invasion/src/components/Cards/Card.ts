@@ -1,20 +1,36 @@
-export class Card {
+import { PlayerStatController } from "../Player Stats/PlayerStatManager/PlayerStatController"
+
+export abstract class Card {
+
+    public get Name() : string {
+        return this.information._name
+    }
+
+    public get Img() : string {
+        return this.information._img
+    }
+    
+    public get Type() : string {
+        return this.information._type
+    }
+
+    
+    public get ID() : number {
+        return this.information._id
+    }
+    
+
     constructor(
         private readonly information: {
+            _id: number,
             _name: string, 
             _type: string, 
             _img: string,
-            }
+            },
     ){}
     
-    getName(): string {
-        return this.information._name;
-    }
-    getType(): string{
-        return this.information._type;
-    }
-    getImg(): string{
-        return this.information._img;
-    }
-    
+    abstract Play(playerStatController: PlayerStatController) : void;
+    abstract Active(playerStatController: PlayerStatController) : void;
+    abstract Exhaust(playerStatController: PlayerStatController) : void;
+    abstract Countdown(playerStatController: PlayerStatController) : void;
 }

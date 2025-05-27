@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import Deck from "./Deck/Deck";
-import { INITIAL_DECK } from "./Deck/InitialDeck";
 import ActiveStack from "./Active Stack/ActiveStack";
 import Discard from "./Discard/Discard";
 import { Card } from "../Cards/Card";
+import { PlayerStat } from "../Player Stats/Stats/PlayerStat";
+import { PlayerStatController } from "../Player Stats/PlayerStatManager/PlayerStatController";
+
 
 interface IStackManagerProps {
     currentDeck: Card[],
     currentActiveStack: Card[],
     currentDiscard: Card[],
+    currentPlayerStats: PlayerStat[],
     handleDeck: React.Dispatch<React.SetStateAction<Card[]>>,
     handleDiscard: React.Dispatch<React.SetStateAction<Card[]>>,
-    handleActiveStack: React.Dispatch<React.SetStateAction<Card[]>>
-
+    handleActiveStack: React.Dispatch<React.SetStateAction<Card[]>>,
+    playerStatController: PlayerStatController
 }
 
-export default function StackManager({currentDeck, currentActiveStack, currentDiscard, handleDeck, handleActiveStack, handleDiscard}: Readonly<IStackManagerProps>){
-
+export default function StackManager({currentDeck, currentActiveStack, currentDiscard, handleDeck, handleActiveStack, handleDiscard, playerStatController}: Readonly<IStackManagerProps>){
     function PlayCard(card: Card){
+        card.Play(playerStatController);
         TransferStacks(handleDeck,handleActiveStack,card);
     }
     function ExhaustCard(card:Card){
@@ -47,7 +50,6 @@ export default function StackManager({currentDeck, currentActiveStack, currentDi
             return newStack2;
         });
     }
-
     return(
         <div>
             <Deck 
