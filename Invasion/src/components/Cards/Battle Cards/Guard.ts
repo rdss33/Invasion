@@ -1,7 +1,6 @@
 import { BattleCard } from "./Battle Card";
 import { CARD_CONSTANTS } from "../Constants";
 import GuardIMG from "../Card Images/Guard Card.png"
-import { PlayerStatController } from "../../Player Stats/PlayerStatManager/PlayerStatController";
 
 const GuardInformation = {
     _id: 0,
@@ -17,8 +16,8 @@ const GuardAttributes = {
 }
 
 export class Guard extends BattleCard {
-    constructor(playerStatController : PlayerStatController){
-        super(GuardInformation,GuardAttributes,playerStatController);
+    constructor(){
+        super(GuardInformation,GuardAttributes);
     }
 }
 

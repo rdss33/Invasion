@@ -34,6 +34,16 @@ export class PlayerStatController{
         }
     }
 
+    getBaseStatValue(name: string) : [success: boolean, value: number]{// Method that returns the base value of a given stat
+        const baseStatIndex = this.BasePlayerStats.findIndex(baseStat=>baseStat.Name===name);// If this stat has a base value
+        if(baseStatIndex!=-1){//If it exists
+            return [true,this.BasePlayerStats[baseStatIndex].Value];// Returns success and the value of the base stat
+        } else 
+        {
+            return [false,0];// Returns fail and value of 0 if there is no base stat
+        }
+    }
+
     getStatChangeAccumulator(name: string) : number { // Method that returns the current value of an accumulator, given its unique name as a parameter
         const statAccIndex = this._statChangeAccumulator.findIndex(accumulator=> accumulator.name === name);
         if(statAccIndex!=-1){
@@ -53,22 +63,13 @@ export class PlayerStatController{
     }
 
     UnloadAccumulators():void{// This method is called to update all stats after "Accumulation" is over
-        this._statChangeAccumulator.forEach(accumulator => {
-            const [baseExists,baseStatValue] = this.getStat(accumulator.name,this.BasePlayerStats);// Tries to access the base value stat with a name that matches the accumulator's name, if that fails then the method returns false and the value is ignored
-            if(baseExists)// Unload the accumulator using a base value 
-            {
-                const newStat = {name: accumulator.name, value: baseStatValue+accumulator.value}// Assembles a new object with the updated stat value
-                this.setStat(newStat,this.PlayerStats,this._playerStatsHandler);// Go through each accumulator and add their values to the stat
-            } else {// If there is no base value for the stat, use the current stat value as a base, should it exist
-                const [statExists,statValue] = this.getStat(accumulator.name,this.PlayerStats);// Tries to access the stat with a name that matches the accumulator's name, if that fails then the method returns false and the value is ignored
-                if(statExists)// Unload the accumulator using the current stat value
-                {
-                    const newStat = {name: accumulator.name, value: statValue+accumulator.value}// Assembles a new object with the updated stat value
-                    this.setStat(newStat,this.PlayerStats,this._playerStatsHandler);// Go through each accumulator and add their values to the stat
-                }
-            }
-        });
-        this.resetAccumulator();
+        this.PlayerStats.forEach(playerStat=>{
+            const [baseExists,baseStatValue] = this.getBaseStatValue(playerStat.Name);// Tries to access this stat's base value, if it exists
+            const accumulatorValue = this.getStatChangeAccumulator(playerStat.Name);// Tries to access an accumulator that would change this stats value, will return 0 if there is no accumulator
+            const newStat = {name: playerStat.Name, value: (baseExists ? baseStatValue : playerStat.Value) + accumulatorValue}// Assembles a new object with the updated stat value
+            this.setStat(newStat,this.PlayerStats,this._playerStatsHandler);// Go through each accumulator and add their values to the stat
+        });// Cycles through each stat the player currently has to unload its accumulator
+        this.resetAccumulator();// Resets all accumulators
     }
 
     

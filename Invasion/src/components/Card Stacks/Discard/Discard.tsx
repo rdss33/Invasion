@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "../../Card";
+import { Card } from "../../Cards/Card";
 import CardStack from "../CardStack";
 
 interface IDiscardProps {
@@ -9,7 +9,7 @@ export default function Discard({currentDiscard}: Readonly<IDiscardProps>){
 
     return(
         <div>
-            <CardStack currentStack={currentDiscard}/>
+            <CardStack stackName="Recovering" currentStack={currentDiscard}/>
         </div>
     )
 }

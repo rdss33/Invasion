@@ -1,0 +1,28 @@
+div.player-stat-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: var(--background-color-dark);
+    color: var(--font-color-light);
+    border: inset .25rem var(--font-color-light);
+}
+div.player-stat-block .title{
+    width: 100%;
+    padding: .5rem;
+}
+div.player-stat-block .value{
+    border-top: .125rem solid var(--font-color-light);
+    width: 100%;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+}
+div.player-stat-block .title, div.player-stat-block .value{
+    text-align: inherit;
+}
+
+div.player-stat-block.Health{
+    grid-column: span 2;
+}

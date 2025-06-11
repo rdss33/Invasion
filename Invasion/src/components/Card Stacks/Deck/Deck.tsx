@@ -1,5 +1,5 @@
 import { INITIAL_DECK } from "./InitialDeck"
-import { Card } from "../../Card"
+import { Card } from "../../Cards/Card";
 import { useState } from "react"
 import CardStack from "../CardStack";
 
@@ -9,6 +9,6 @@ interface IDeckProps {
 
 export default function Deck({currentDeck}: Readonly<IDeckProps>){
     return(
-        <CardStack currentStack={currentDeck}/>
+        <CardStack stackName="Reserve" currentStack={currentDeck}/>
     )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "../../Card";
+import { Card } from "../../Cards/Card";
 import CardStack from "../CardStack";
 
 interface IActiveStackProps {
@@ -8,8 +8,6 @@ interface IActiveStackProps {
 export default function ActiveStack({currentActiveStack}: Readonly<IActiveStackProps>){
 
     return(
-        <div>
-            <CardStack currentStack={currentActiveStack}/>
-        </div>
+        <CardStack stackName="Deployed" currentStack={currentActiveStack}/>
     )
 }

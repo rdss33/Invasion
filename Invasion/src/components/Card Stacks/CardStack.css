@@ -1,0 +1,32 @@
+div.stack-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+div.stack-group .stack-title{
+    padding: .5rem;
+}
+
+div.stack-displayer{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-auto-rows: 1fr;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(7,1fr);
+    row-gap: .5rem;
+    column-gap: .75rem;
+    min-height: 32px;
+    max-height: 8rem;
+    background-color: var(--background-color-dark);
+    width: 90%;
+    padding: .5rem;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    border: .25rem inset var(--font-color-light);
+}
+div.stack-displayer::-webkit-scrollbar{
+    width: .1rem;
+}

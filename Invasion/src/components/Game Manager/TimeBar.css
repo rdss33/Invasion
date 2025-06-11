@@ -1,0 +1,23 @@
+div.time-bar-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 98%;
+    background-color: var(--background-color-dark);
+    border: .25rem inset var(--font-color-light);
+    color: var(--font-color-light);
+    padding-top: .5rem;
+    padding-bottom: 1rem;
+}
+div.time-bar-group progress.time-value{
+    border: .25rem inset var(--font-color-dark);
+    width: 80%;
+    height: 2rem;
+}
+div.time-bar-group progress.time-value::-webkit-progress-bar{
+    background-color: var(--background-color-dark);
+}
+
+div.time-bar-group progress.time-value::-webkit-progress-value{
+    background-color: var(--font-color-light);
+}

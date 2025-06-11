@@ -1,0 +1,11 @@
+div.player-stat-manager{
+    background-color: var(--background-color-light);
+    color: var(--font-color-dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    column-gap: .5rem;
+    row-gap: .25rem;
+    width: fit-content;
+    padding: 1rem;
+}

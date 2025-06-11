@@ -1,3 +1,4 @@
+import { StackController } from "../Card Stacks/StackController"
 import { PlayerStatController } from "../Player Stats/PlayerStatManager/PlayerStatController"
 
 export abstract class Card {
@@ -29,8 +30,8 @@ export abstract class Card {
             },
     ){}
     
-    abstract Play(playerStatController: PlayerStatController) : void;
-    abstract Active(playerStatController: PlayerStatController) : void;
-    abstract Exhaust(playerStatController: PlayerStatController) : void;
-    abstract Countdown(playerStatController: PlayerStatController) : void;
+    abstract Play(playerStatController: PlayerStatController, stackController : StackController) : void;
+    abstract Active(playerStatController: PlayerStatController, stackController : StackController) : void;
+    abstract Exhaust(playerStatController: PlayerStatController, stackController : StackController) : void;
+    abstract Countdown(playerStatController: PlayerStatController, stackController : StackController) : void;
 }

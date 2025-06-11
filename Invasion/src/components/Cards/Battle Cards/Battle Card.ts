@@ -1,3 +1,4 @@
+import { StackController } from "../../Card Stacks/StackController";
 import { PlayerStatController } from "../../Player Stats/PlayerStatManager/PlayerStatController";
 import { Card } from "../Card"
 import { CARD_CONSTANTS } from "../Constants";
@@ -61,13 +62,14 @@ export abstract class BattleCard extends Card {
         this.AddStat("Attack",this.Attack,playerStatController);
         this.AddStat("Defense",this.Defense,playerStatController);
     }
-    Exhaust(playerStatController: PlayerStatController): void {
+    Exhaust(playerStatController: PlayerStatController, stackController: StackController): void {
+        stackController.ExhaustCard(this);// Exhaust this card
         // Children may override this method to add "On Exhaust" effects
     }
-    Countdown(playerStatController : PlayerStatController) : void {
+    Countdown(playerStatController : PlayerStatController, stackController : StackController) : void {
         // Children may override this method to add "On Countdown" effects
         if(this._remainingDuration<=0){
-            this.Exhaust(playerStatController);
+            this.Exhaust(playerStatController, stackController);
         } else {
             this.Active(playerStatController);
         }
