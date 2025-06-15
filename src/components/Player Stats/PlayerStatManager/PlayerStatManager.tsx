@@ -1,4 +1,3 @@
-import React from "react";
 import { PlayerStat } from "../Stats/PlayerStat";
 import PlayerStatDisplay from "./PlayerStatDisplay";
 import "./PlayerStatManager.css"

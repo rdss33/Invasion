@@ -1,4 +1,3 @@
-import { PlayerStatController } from "../Player Stats/PlayerStatManager/PlayerStatController";
 import { Guard } from "./Battle Cards/Guard";
 import { Card } from "./Card";
 
@@ -19,7 +18,7 @@ export class CardGenerator{
             return [true,card];
         }
         else
-            return [false,new Guard(this.playerStatController)] 
+            return [false,new Guard()] 
     }
 
     public GenerateCards(cardIDs: number[]): Card[]{
@@ -33,11 +32,10 @@ export class CardGenerator{
     return cards;// Returns the array
 }
     
-    constructor(
-        private readonly playerStatController : PlayerStatController){
+    constructor(){
             this.AllCards = // Create all cards that will be played in the game here as prototypes, they shall be made into individual instances using the Generate Cards function
             [
-                new Guard(this.playerStatController),
+                new Guard(),
             ]
     }
 }

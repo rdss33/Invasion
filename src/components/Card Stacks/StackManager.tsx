@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Deck from "./Deck/Deck";
 import ActiveStack from "./Active Stack/ActiveStack";
 import Discard from "./Discard/Discard";

@@ -53,25 +53,25 @@ export abstract class BattleCard extends Card {
     ){
         super(Information);
     }
-    Play(playerStatController: PlayerStatController): void {
+    Play(_playerStatController: PlayerStatController): void {
         // Children may override this method to add "On Play" effects
         this._remainingDuration = this.Duration;
     }
-    Active(playerStatController: PlayerStatController): void {
+    Active(_playerStatController: PlayerStatController): void {
         // This is the cards basic functionality while active
-        this.AddStat("Attack",this.Attack,playerStatController);
-        this.AddStat("Defense",this.Defense,playerStatController);
+        this.AddStat("Attack",this.Attack,_playerStatController);
+        this.AddStat("Defense",this.Defense,_playerStatController);
     }
-    Exhaust(playerStatController: PlayerStatController, stackController: StackController): void {
+    Exhaust(_playerStatController: PlayerStatController, stackController: StackController): void {
         stackController.ExhaustCard(this);// Exhaust this card
         // Children may override this method to add "On Exhaust" effects
     }
-    Countdown(playerStatController : PlayerStatController, stackController : StackController) : void {
+    Countdown(_playerStatController : PlayerStatController, stackController : StackController) : void {
         // Children may override this method to add "On Countdown" effects
         if(this._remainingDuration<=0){
-            this.Exhaust(playerStatController, stackController);
+            this.Exhaust(_playerStatController, stackController);
         } else {
-            this.Active(playerStatController);
+            this.Active(_playerStatController);
         }
         this._remainingDuration-=this.DrainRate; // Reduces remaining duration by the drain rate
     }

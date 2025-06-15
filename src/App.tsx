@@ -23,14 +23,14 @@ function App() {
   const playCardCounter = useRef(0);// Counts how many ticks have happened, eventually triggers a Card Play Event
   const [tickToggle,setTickToggle] = useState<boolean>(false);// Toggle every time timer TICK_TIME is over, allowing a tick event to happen
   const [playerStats,setPlayerStats] = useState<PlayerStat[]>(INITIAL_PLAYER_STATS);// Current player stats
-  const [basePlayerStats,setBasePlayerStats] = useState<PlayerStat[]>(INITIAL_BASE_PLAYER_STATS);// Values that stats need to return to
+  const [basePlayerStats] = useState<PlayerStat[]>(INITIAL_BASE_PLAYER_STATS);// Values that stats need to return to
   const [timeElapsed,setTimeElapsed] = useState<number>(0);// This shows the time elapse in miliseconds since last tick
    const playerStatController = new PlayerStatController(
     playerStats,
     (value)=>setPlayerStats(value),
     basePlayerStats
   );// Instances a class that controls player stats state, this is rebuilt every update!
-  const cardGenerator = new CardGenerator(playerStatController);// Instances a class that creates cards
+  const cardGenerator = new CardGenerator();// Instances a class that creates cards
   const [currentDeck,setCurrentDeck] = useState<Card[]>(cardGenerator.GenerateCards(INITIAL_DECK)); // Using the card generator object, Generate Cards method will create objs based on passed ID's and inject them with the stat controller
   const [currentActiveStack,setCurrentActiveStack] = useState<Card[]>([]);// Initializes an empty active stack
   const [currentDiscard,setCurrentDiscard] = useState<Card[]>([]);// Initializes an empty discard stack

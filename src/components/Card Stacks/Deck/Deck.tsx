@@ -1,6 +1,4 @@
-import { INITIAL_DECK } from "./InitialDeck"
 import { Card } from "../../Cards/Card";
-import { useState } from "react"
 import CardStack from "../CardStack";
 
 interface IDeckProps {

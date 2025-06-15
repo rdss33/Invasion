@@ -1,4 +1,3 @@
-import React from "react";
 import "./TimeBar.css"
 
 interface ITimeBar{
