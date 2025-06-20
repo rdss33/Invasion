@@ -72,7 +72,16 @@ export class PlayerStatController{
         this.resetAccumulator();// Resets all accumulators
     }
 
-    
+    DamageHandler(incomingDamage : number):void{
+        const [defenseExists,playerCurrentDefense] = this.getStat("Defense", this.PlayerStats);// Access the player's Defense value
+        if(defenseExists){// If both health and defense stats exists, process damage. They should ALWAYS exist, something major is broken if they don't
+            let reducedDamage = incomingDamage - playerCurrentDefense;// This will reduce incoming damage by the players current defense
+            reducedDamage = reducedDamage >= 0 ? reducedDamage : 0;// This will prevent damage from turning into healing if defense is high enough
+            this.setStatChangeAccumulator({name: "Health", value:-reducedDamage});// Sends the value as a negative to reduce health stat value
+        } else { // This will act as a debugging tool to warn the developer that one of the major stats does not exist in the array and which one is missing
+            console.log(`Major error! Defense does not exist`);
+        }    
+    }
 
     private resetAccumulator():void{
         this._statChangeAccumulator = []; // Clears the array for then next set of calculations

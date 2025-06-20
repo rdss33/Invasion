@@ -20,11 +20,15 @@ export abstract class Card {
         return this.information._id
     }
     
+    public get Rank(): string{
+        return this.information._rank
+    }
 
     constructor(
         private readonly information: {
             _id: number,
-            _name: string, 
+            _name: string,
+            _rank: string, 
             _type: string, 
             _img: string,
             },
@@ -33,5 +37,6 @@ export abstract class Card {
     abstract Play(playerStatController: PlayerStatController, stackController : StackController) : void;
     abstract Active(playerStatController: PlayerStatController, stackController : StackController) : void;
     abstract Exhaust(playerStatController: PlayerStatController, stackController : StackController) : void;
+    abstract Recover(playerStatController: PlayerStatController, stackController : StackController) : void;
     abstract Countdown(playerStatController: PlayerStatController, stackController : StackController) : void;
 }
